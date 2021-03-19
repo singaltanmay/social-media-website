@@ -16,7 +16,7 @@ function generateToken(user){
 
 module.exports = {
     Mutation : {
-        async validateLoginInput(_, {username, password}){
+        async login(_, {username, password}){
             const {errors, valid} = validateLoginInput(username, password);
 
             if(!valid){
@@ -61,7 +61,6 @@ module.exports = {
                     }
                 })
             }
-
 
             password = await bcrypt.hash(password, 12)
 
