@@ -5,30 +5,30 @@ const checkAuth = require('../../util/checkAuth')
 
 module.exports = {
     Query: {
-        async getPosts(){
-            try{
+        async getPosts() {
+            try {
                 // -1 tells mongoose to sort in decreasing order
                 const posts = await Post.find().sort({createdAt: -1});
                 return posts;
-            } catch(err) {
+            } catch (err) {
                 throw new Error(err);
             }
         },
-        async getPost(_, {postId}){
-            try{
+        async getPost(_, {postId}) {
+            try {
                 const post = await Post.findById(postId);
                 if (post) {
                     return post;
                 } else {
                     throw new Error('Post not found');
                 }
-            } catch (err){
+            } catch (err) {
                 throw new Error(err);
             }
         }
     },
     Mutation: {
-        async createPost(_, {body}, context){
+        async createPost(_, {body}, context) {
             const user = checkAuth(context);
             const newPost = new Post({
                 body,
@@ -40,7 +40,7 @@ module.exports = {
             const post = await newPost.save();
             return post;
         },
-        async deletePost(_, {postId}, context){
+        async deletePost(_, {postId}, context) {
             const user = checkAuth(context);
 
             try {
@@ -51,18 +51,18 @@ module.exports = {
                 } else {
                     throw new AuthenticationError("User not authorized to perform this action");
                 }
-            } catch (e){
+            } catch (e) {
                 throw new Error(e);
             }
         },
-        async likePost(_, {postId}, context){
-            const {username } = checkAuth(context);
+        async likePost(_, {postId}, context) {
+            const {username} = checkAuth(context);
 
             try {
                 const post = await Post.findById(postId);
                 if (post) {
                     // Checks if post already liked
-                    if(post.likes.find(like => like.username === username)){
+                    if (post.likes.find(like => like.username === username)) {
                         post.likes = post.likes.filter(like => like.username !== username);
                     } else {
                         post.likes.push({
@@ -75,7 +75,7 @@ module.exports = {
                 } else {
                     throw new UserInputError("Post not found");
                 }
-            } catch (e){
+            } catch (e) {
                 throw new Error(e);
             }
         }

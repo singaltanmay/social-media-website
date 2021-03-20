@@ -12,7 +12,7 @@ module.exports = (context) => {
             try {
                 return jwt.verify(token, SECRET_KEY);
             } catch (e) {
-              throw new AuthenticationError("Invalid or expired token");
+                throw new AuthenticationError("Invalid or expired token");
             }
         }
         throw new Error("Authentication token must be in the format 'Bearer [token]'")

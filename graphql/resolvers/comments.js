@@ -4,15 +4,15 @@ const Post = require('../../models/Post')
 const checkAuth = require('../../util/checkAuth')
 
 module.exports = {
-    Mutation : {
-        async createComment(_, {postId, body}, context){
+    Mutation: {
+        async createComment(_, {postId, body}, context) {
             const {username} = checkAuth(context);
-            if(!body || body.trim() === ''){
-                 throw new UserInputError('Empty comment', {
-                     errors: {
-                         body: 'Comment body must not be empty'
-                     }
-                 })
+            if (!body || body.trim() === '') {
+                throw new UserInputError('Empty comment', {
+                    errors: {
+                        body: 'Comment body must not be empty'
+                    }
+                })
             }
 
             const post = await Post.findById(postId);
@@ -32,8 +32,8 @@ module.exports = {
                     }
                 })
             }
-      },
-        async deleteComment(_, {postId, commentId}, context){
+        },
+        async deleteComment(_, {postId, commentId}, context) {
             const {username} = checkAuth(context);
 
             const post = await Post.findById(postId);
