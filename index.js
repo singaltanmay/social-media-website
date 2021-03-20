@@ -18,4 +18,4 @@ mongoose.connect(MONGODB, {useNewUrlParser:true, useUnifiedTopology: true})
             .then(res => {
                 console.log(`Server running at ${res.url}`);
             });
-    });
+});
