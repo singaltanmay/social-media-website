@@ -61,7 +61,7 @@ function Register() {
                     placeholder='Confirm Password'
                     name='confirmPassword'
                     type='password'
-                    value={values.confirmPasssword}
+                    value={values.confirmPassword}
                     onChange={onChange}
                 />
                 <Button type="submit" primary>
